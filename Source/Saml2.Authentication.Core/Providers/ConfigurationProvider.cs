@@ -90,7 +90,7 @@ namespace Saml2.Authentication.Core.Providers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error loading certificate message:{0}", ex.Message);
+                _logger.LogError("Error loading certificate file:{0} pwd:{1} message:{2}",fullFileName, password, ex.Message);
                 return null;
             }
 

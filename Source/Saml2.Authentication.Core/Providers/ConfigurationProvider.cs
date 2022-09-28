@@ -1,4 +1,6 @@
-﻿namespace Saml2.Authentication.Core.Providers
+﻿using Microsoft.Extensions.Logging;
+
+namespace Saml2.Authentication.Core.Providers
 {
     using System;
     using System.IO;
@@ -10,10 +12,12 @@
     internal class ConfigurationProvider : IConfigurationProvider
     {
         private readonly Saml2Configuration _configuration;
-
-        public ConfigurationProvider(Saml2Configuration configuration)
+        private readonly ILogger<ConfigurationProvider> _logger;
+        
+        public ConfigurationProvider(Saml2Configuration configuration, ILogger<ConfigurationProvider> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
 
         public ServiceProviderConfiguration ServiceProviderConfiguration => _configuration.ServiceProviderConfiguration;
@@ -77,10 +81,19 @@
                 ? Path.Combine(Directory.GetCurrentDirectory(), filename)
                 : filename;
 
-            return new X509Certificate2(
-                fullFileName,
-                password,
-                flags);
+            try
+            {
+                return new X509Certificate2(
+                    fullFileName,
+                    password,
+                    flags);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error loading certificate message:{0}", ex.Message);
+                return null;
+            }
+
         }
 
         private static X509Certificate2 FindCertificate(string findValue, X509FindType findType, StoreName storeName = StoreName.My, StoreLocation storeLocation = StoreLocation.LocalMachine, bool validOnly = false)

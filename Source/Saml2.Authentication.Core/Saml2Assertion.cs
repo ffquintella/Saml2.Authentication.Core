@@ -57,7 +57,7 @@ namespace Saml2.Authentication.Core
             if (XmlSignatureUtils.CheckSignature(_samlAssertion, key))
             {
                 SigningKey = key;
-                return true;
+                return true; 
             }
 
             return false;

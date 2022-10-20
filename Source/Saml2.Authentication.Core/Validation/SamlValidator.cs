@@ -12,7 +12,10 @@ namespace Saml2.Authentication.Core.Validation
     using dk.nita.saml20.Utils;
     using Providers;
 
-    public class SamlValidator : ISamlValidator
+    public class 
+        
+        
+        SamlValidator : ISamlValidator
     {
         private readonly ISamlXmlProvider _xmlProvider;
 
@@ -97,12 +100,24 @@ namespace Saml2.Authentication.Core.Validation
         public Saml2Assertion GetValidatedAssertion(XmlElement element)
         {
             var signingCertificate = _configurationProvider.ServiceProviderSigningCertificate();
-
+            
             var assertionElement = _xmlProvider.GetAssertion(element, signingCertificate.GetRSAPrivateKey());
-            var key = signingCertificate.PublicKey.GetRSAPublicKey();
+            
+            var keys = new List<AsymmetricAlgorithm> ();
+            foreach (var idp in _configurationProvider.GetIdentityProviderConfigurations())
+            {
+                //var key =   signingCertificate.PublicKey.GetRSAPublicKey();
+
+                var idpSCert = _configurationProvider.GetIdentityProviderSigningCertificate(idp.Name);
+                var key = idpSCert.PublicKey.GetRSAPublicKey();
+                keys.Add(key);
+
+            }
+            
+            
             var audience = ServiceProviderConfiguration.EntityId;
 
-            var keys = new List<AsymmetricAlgorithm> { key };
+            
             var assertion = new Saml2Assertion(assertionElement, keys, AssertionProfile.Core, new List<string> { audience }, false);
 
             if (!ServiceProviderConfiguration.OmitAssertionSignatureCheck)

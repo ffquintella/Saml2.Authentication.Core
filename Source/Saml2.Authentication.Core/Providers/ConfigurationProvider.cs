@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace Saml2.Authentication.Core.Providers
 {
@@ -22,6 +23,11 @@ namespace Saml2.Authentication.Core.Providers
 
         public ServiceProviderConfiguration ServiceProviderConfiguration => _configuration.ServiceProviderConfiguration;
 
+        public List<IdentityProviderConfiguration> GetIdentityProviderConfigurations()
+        {
+            return _configuration.IdentityProviderConfiguration.ToList();
+        }
+        
         public IdentityProviderConfiguration GetIdentityProviderConfiguration(string providerName)
         {
             if (providerName.IsNullOrEmpty())

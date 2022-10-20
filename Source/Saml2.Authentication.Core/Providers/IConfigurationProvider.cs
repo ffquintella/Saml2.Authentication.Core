@@ -1,4 +1,6 @@
-﻿namespace Saml2.Authentication.Core.Providers
+﻿using System.Collections.Generic;
+
+namespace Saml2.Authentication.Core.Providers
 {
     using System.Security.Cryptography.X509Certificates;
     using Configuration;
@@ -9,6 +11,8 @@
 
         IdentityProviderConfiguration GetIdentityProviderConfiguration(string providerName);
 
+        List<IdentityProviderConfiguration> GetIdentityProviderConfigurations();
+        
         X509Certificate2 GetIdentityProviderSigningCertificate(string providerName);
 
         X509Certificate2 ServiceProviderSigningCertificate();

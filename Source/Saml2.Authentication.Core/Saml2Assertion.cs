@@ -292,7 +292,8 @@ namespace Saml2.Authentication.Core
         /// <param name="trustedSigners">The trusted signers.</param>
         private void LoadXml(XmlElement element, IEnumerable<AsymmetricAlgorithm> trustedSigners)
         {
-            _samlAssertion = element;
+            
+            _samlAssertion = element ?? throw new Saml2Exception("XmlElement cannot be null.");
             if (trustedSigners != null && XmlSignatureUtils.IsSigned(element))
             {
                 if (!CheckSignature(trustedSigners))

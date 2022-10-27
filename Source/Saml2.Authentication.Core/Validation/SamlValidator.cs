@@ -118,7 +118,8 @@ namespace Saml2.Authentication.Core.Validation
             var audience = ServiceProviderConfiguration.EntityId;
 
             
-            var assertion = new Saml2Assertion(assertionElement, keys, AssertionProfile.Core, new List<string> { audience }, false);
+            var assertion = new Saml2Assertion(assertionElement, 
+                keys, AssertionProfile.Core, new List<string> { audience }, false);
 
             if (!ServiceProviderConfiguration.OmitAssertionSignatureCheck)
             {

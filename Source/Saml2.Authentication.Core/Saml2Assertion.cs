@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+
 namespace Saml2.Authentication.Core
 {
     using System;
@@ -14,6 +16,7 @@ namespace Saml2.Authentication.Core
     using dk.nita.saml20.Validation;
     using Validation;
     using Signature = dk.nita.saml20.Schema.XmlDSig.Signature;
+    using Serilog;
 
     /// <summary>
     ///     Encapsulates the functionality required of a DK-SAML 2.0 Assertion.
@@ -43,10 +46,19 @@ namespace Saml2.Authentication.Core
                     continue;
                 }
 
-                if (CheckSignature(key))
+                try
                 {
-                    return true;
+                    if (CheckSignature(key))
+                    {
+                        return true;
+                    }
                 }
+                catch (Exception ex)
+                {
+                    Log.Error("Error checking signature message:{0}", ex.Message);
+                    return false;
+                }
+
             }
 
             return false;
@@ -351,6 +363,7 @@ namespace Saml2.Authentication.Core
 
         private readonly bool _quirksMode;
         private readonly bool _autoValidate = true;
+        
 
         #endregion
 
@@ -537,6 +550,7 @@ namespace Saml2.Authentication.Core
         /// </summary>
         public Saml2Assertion()
         {
+            
         }
 
         /// <summary>
@@ -552,6 +566,7 @@ namespace Saml2.Authentication.Core
             _audience = audience;
             _quirksMode = quirksMode;
             _profile = AssertionProfile.DKSaml;
+
             LoadXml(assertion, trustedSigners);
         }
 

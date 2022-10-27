@@ -66,13 +66,34 @@ namespace Saml2.Authentication.Core
 
         private bool CheckSignature(AsymmetricAlgorithm key)
         {
-            if (XmlSignatureUtils.CheckSignature(_samlAssertion, key))
+            if (key == null)
             {
-                SigningKey = key;
-                return true; 
+                Log.Error("Assymetric key cannot be null");
+                throw new Exception("Assymetric key cannot be null");
             }
 
-            return false;
+            if (_samlAssertion == null)
+            {
+                Log.Error("SAMLAssertion cannot be null");
+                throw new Exception("SAMLAssertion cannot be null");
+            }
+            
+            try
+            {
+                if (XmlSignatureUtils.CheckSignature(_samlAssertion, key))
+                {
+                    SigningKey = key;
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error on XMLSignatureUtils - message: {0}", ex.Message);
+                throw new Exception("Unexpected verification error", ex);
+            }
+
         }
 
         /// <summary>

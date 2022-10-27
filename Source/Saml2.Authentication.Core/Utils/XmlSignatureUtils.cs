@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Serilog;
 
 namespace dk.nita.saml20.Utils
 {
@@ -105,9 +106,30 @@ namespace dk.nita.saml20.Utils
         /// <exception cref="InvalidOperationException">if the XmlDocument instance does not contain a signed XML element.</exception>
         public static bool CheckSignature(XmlElement el, AsymmetricAlgorithm alg)
         {
-            
             var signedXml = RetrieveSignature(el);
-            return signedXml.CheckSignature(alg);
+            if (signedXml == null)
+            {
+                Log.Error("Error retrieving signature form xml");
+                throw new Exception("Error retrieving signature form xml");
+            }
+
+            if (alg == null)
+            {
+                Log.Error("AsymmetricAlgorithm cannot be null");
+                throw new Exception("AsymmetricAlgorithm cannot be null");
+            }
+
+            try
+            {
+                Log.Debug("Assimetric Algorithm: {0}", alg.ToXmlString(false));
+                return signedXml.CheckSignature(alg);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error checking xml signature - message: {0}", ex.Message);
+                throw new Exception("Error checking xml signature", ex);
+            }
+            
         }
 
         /// <summary>
@@ -341,12 +363,29 @@ namespace dk.nita.saml20.Utils
                 throw new InvalidOperationException("Document does not contain a signature to verify.");
             }
 
-            signedXml.LoadXml((XmlElement) nodeList[0]);
+            try
+            {
+                var element = (XmlElement)nodeList[0];
+                if (element == null)
+                {
+                    throw new Exception("Error extracting xmlElement");
+                }
+                Log.Debug("Trying to load xmlElement {0}", element.Name);
+                signedXml.LoadXml(element);
 
-            // verify that the inlined signature has a valid reference uri
-            VerifyRererenceUri(signedXml, el.GetAttribute("ID"));
+                Log.Debug("SignedXML loaded");
+                Log.Debug("SignedXML signatureMethod loaded: {0}", signedXml.SignatureMethod);
 
-            return signedXml;
+                // verify that the inlined signature has a valid reference uri
+                VerifyRererenceUri(signedXml, el.GetAttribute("ID"));
+
+                return signedXml;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error RetrieveSignature - message:{0}", ex);
+                throw new Exception("Error RetrieveSignature", ex);
+            }
         }
 
         /// <summary>

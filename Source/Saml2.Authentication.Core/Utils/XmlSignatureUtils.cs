@@ -122,7 +122,9 @@ namespace dk.nita.saml20.Utils
             try
             {
                 Log.Debug("Assimetric Algorithm: {0}", alg.ToXmlString(false));
-                return signedXml.CheckSignature(alg);
+                
+                //return signedXml.CheckSignature(alg);
+                return CheckSignature(alg, signedXml);
             }
             catch (Exception ex)
             {
@@ -132,6 +134,169 @@ namespace dk.nita.saml20.Utils
             
         }
 
+        public static bool CheckSignature(AsymmetricAlgorithm key, SignedXml xml)
+        {
+            Log.Debug("Verifing Signature with key:{0}, xml:{1}", key.SignatureAlgorithm, xml.ToString());
+            if (key is null)
+            {
+                Log.Error("Key cannot be null");
+                throw new ArgumentNullException(nameof(key));
+            }
+            
+            SignatureDescription signatureDescription = CreateFromName<SignatureDescription>(xml.SignatureMethod);
+            if (signatureDescription == null)
+            {
+                Log.Error("Error creating signature description");
+                throw new CryptographicException(SR.Cryptography_Xml_SignatureDescriptionNotCreated);
+            }
+                
+            Log.Debug("Sinature description: {0}", signatureDescription.KeyAlgorithm);
+            // Let's see if the key corresponds with the SignatureMethod
+            Type ta = Type.GetType(signatureDescription.KeyAlgorithm);
+            if (ta == null)
+            {
+                Log.Error("Ta invalid");
+                throw new Exception("Error geting signature object");
+            }
+            
+            Log.Debug("Key type: {0}", ta.Name);
+            
+            if (!IsKeyTheCorrectAlgorithm(key, ta))
+                return false;
+
+            HashAlgorithm hashAlgorithm = signatureDescription.CreateDigest();
+            
+            Log.Debug("HashAlgorithm: {0}", hashAlgorithm.ToString());
+            if (hashAlgorithm == null)
+            {
+                Log.Error("Error creating signature hash algorithm");
+                throw new CryptographicException(SR.Cryptography_Xml_CreateHashAlgorithmFailed);
+            }
+            
+            
+            //byte[] hashval = GetC14NDigest(hashAlgorithm);
+            
+            MethodInfo dynMethod =  typeof(SignedXml).GetMethod("GetC14NDigest", 
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            byte[] hashval = (byte[])dynMethod.Invoke(xml, new object[] { hashAlgorithm });
+            
+            if (hashval == null)
+            {
+                Log.Error("Error calculating hash value");
+                throw new Exception("Hash value is invalid");
+            }
+
+            Log.Debug("Hash value: {0}", System.Text.Encoding.Default.GetString(hashval));
+            
+            //AsymmetricSignatureDeformatter asymmetricSignatureDeformatter = signatureDescription.CreateDeformatter(key);
+
+            var asymmetricSignatureDeformatter = new RSAPKCS1SignatureDeformatter();
+            asymmetricSignatureDeformatter.SetKey(key);
+            asymmetricSignatureDeformatter.SetHashAlgorithm(signatureDescription.DigestAlgorithm);
+            
+            
+            Log.Debug("Verifing Signature deformarter");
+            try
+            {
+                return asymmetricSignatureDeformatter.VerifySignature(hashval, xml.Signature.SignatureValue);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error verifing signature on asymmetric signature");
+                throw new Exception("Error verifing signature on asymmetric signature", ex);
+            }
+            
+            
+
+        }
+
+
+        
+        private bool _bCacheValid;
+        private byte[] _digestedSignedInfo;
+        
+        private static bool IsKeyTheCorrectAlgorithm(AsymmetricAlgorithm key, Type expectedType)
+        {
+            Type actualType = key.GetType();
+
+            if (actualType == expectedType)
+                return true;
+
+            // This check exists solely for compatibility with 4.6. Normally, we would expect "expectedType" to be the superclass type and
+            // the actualType to be the subclass.
+            if (expectedType.IsSubclassOf(actualType))
+                return true;
+
+            //
+            // "expectedType" comes from the KeyAlgorithm property of a SignatureDescription. The BCL SignatureDescription classes have historically
+            // denoted provider-specific implementations ("RSACryptoServiceProvider") rather than the base class for the algorithm ("RSA"). We could
+            // change those (at the risk of creating other compat problems) but we have no control over third party SignatureDescriptions.
+            //
+            // So, in the absence of a better approach, walk up the parent hierarchy until we find the ancestor that's a direct subclass of
+            // AsymmetricAlgorithm and treat that as the algorithm identifier.
+            //
+            while (expectedType != null && expectedType.BaseType != typeof(AsymmetricAlgorithm))
+            {
+                expectedType = expectedType.BaseType;
+            }
+
+            if (expectedType == null)
+                return false;   // SignatureDescription specified something that isn't even a subclass of AsymmetricAlgorithm. For compatibility with 4.6, return false rather throw.
+
+            if (actualType.IsSubclassOf(expectedType))
+                return true;
+
+            return false;
+        }
+        
+        private static readonly char[] _invalidChars = new char[] { ',', '`', '[', '*', '&' };
+        public static T CreateFromName<T>(string name) where T : class
+        {
+            if (name == null || name.IndexOfAny(_invalidChars) >= 0)
+            {
+                return null;
+            }
+            try
+            {
+                return (CryptoConfig.CreateFromName(name) ?? CreateFromKnownName(name)) as T;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        
+        public static object CreateFromKnownName(string name) =>
+            name switch
+            {
+                "http://www.w3.org/TR/2001/REC-xml-c14n-20010315" => new XmlDsigC14NTransform(),
+                "http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments" => new XmlDsigC14NWithCommentsTransform(),
+                "http://www.w3.org/2001/10/xml-exc-c14n#" => new XmlDsigExcC14NTransform(),
+                "http://www.w3.org/2001/10/xml-exc-c14n#WithComments" => new XmlDsigExcC14NWithCommentsTransform(),
+                "http://www.w3.org/2000/09/xmldsig#base64" => new XmlDsigBase64Transform(),
+                "http://www.w3.org/TR/1999/REC-xpath-19991116" => new XmlDsigXPathTransform(),
+                "http://www.w3.org/TR/1999/REC-xslt-19991116" => new XmlDsigXsltTransform(),
+                "http://www.w3.org/2000/09/xmldsig#enveloped-signature" => new XmlDsigEnvelopedSignatureTransform(),
+                "http://www.w3.org/2002/07/decrypt#XML" => new XmlDecryptionTransform(),
+                "urn:mpeg:mpeg21:2003:01-REL-R-NS:licenseTransform" => new XmlLicenseTransform(),
+                "http://www.w3.org/2000/09/xmldsig# X509Data" => new KeyInfoX509Data(),
+                "http://www.w3.org/2000/09/xmldsig# KeyName" => new KeyInfoName(),
+#pragma warning disable CA1416 // This call site is reachable on all platforms. 'DSAKeyValue' is unsupported on: 'ios', 'maccatalyst', 'tvos'
+                "http://www.w3.org/2000/09/xmldsig# KeyValue/DSAKeyValue" => new DSAKeyValue(),
+#pragma warning restore CA1416
+                "http://www.w3.org/2000/09/xmldsig# KeyValue/RSAKeyValue" => new RSAKeyValue(),
+                "http://www.w3.org/2000/09/xmldsig# RetrievalMethod" => new KeyInfoRetrievalMethod(),
+                "http://www.w3.org/2001/04/xmlenc# EncryptedKey" => new KeyInfoEncryptedKey(),
+                "http://www.w3.org/2000/09/xmldsig#dsa-sha1" => new DSASignatureDescription(),
+                "System.Security.Cryptography.DSASignatureDescription" => new DSASignatureDescription(),
+                "http://www.w3.org/2000/09/xmldsig#rsa-sha1" => new RSAPKCS1SHA1SignatureDescription(),
+                "System.Security.Cryptography.RSASignatureDescription" => new RSAPKCS1SHA1SignatureDescription(),
+                "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" => new RSAPKCS1SHA256SignatureDescription(),
+                "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384" => new RSAPKCS1SHA384SignatureDescription(),
+                "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512" => new RSAPKCS1SHA512SignatureDescription(),
+                _ => null,
+            };
+        
         /// <summary>
         ///     Verify the given document using a KeyInfo instance. The KeyInfo instance's KeyClauses will be traversed for
         ///     elements that can verify the signature, eg. certificates or keys. If nothing is found, an exception is thrown.
@@ -372,6 +537,7 @@ namespace dk.nita.saml20.Utils
                 }
                 Log.Debug("Trying to load xmlElement {0}", element.Name);
                 signedXml.LoadXml(element);
+                //signedXml.SignedInfo.CanonicalizationMethod = SignedXml.XmlDsigExcC14NTransformUrl;
 
                 Log.Debug("SignedXML loaded");
                 Log.Debug("SignedXML signatureMethod loaded: {0}", signedXml.SignatureMethod);

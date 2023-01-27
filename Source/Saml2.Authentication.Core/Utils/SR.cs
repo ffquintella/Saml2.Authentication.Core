@@ -1,6 +1,8 @@
 using System;
 using System.Resources;
 
+#nullable enable
+
 namespace dk.nita.saml20.Utils;
 
 internal static  class SR
@@ -131,7 +133,7 @@ internal static  class SR
 
             return resourceFormat;
         }
-        private static global::System.Resources.ResourceManager s_resourceManager;
+        private static global::System.Resources.ResourceManager? s_resourceManager;
         internal static global::System.Resources.ResourceManager ResourceManager => s_resourceManager ?? (s_resourceManager = new global::System.Resources.ResourceManager(typeof(SR)));
 
         /// <summary>Index was out of range. Must be non-negative and less than the size of the collection.</summary>

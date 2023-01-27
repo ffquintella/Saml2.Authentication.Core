@@ -212,8 +212,8 @@ namespace dk.nita.saml20.Utils
 
 
         
-        private bool _bCacheValid;
-        private byte[] _digestedSignedInfo;
+        //private bool _bCacheValid;
+        //private byte[] _digestedSignedInfo;
         
         private static bool IsKeyTheCorrectAlgorithm(AsymmetricAlgorithm key, Type expectedType)
         {

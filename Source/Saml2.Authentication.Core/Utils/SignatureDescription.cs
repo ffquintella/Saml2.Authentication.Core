@@ -3,6 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Security;
 using System.Security.Cryptography;
 
+#nullable enable
+
 namespace dk.nita.saml20.Utils;
 
 public class SignatureDescription

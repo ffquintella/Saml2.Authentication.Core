@@ -143,9 +143,19 @@ namespace Saml2.Authentication.Core.Bindings
         public string BuildLogoutResponseUrl(string providerName, Core.Saml2LogoutResponse logoutResponse, string relayState)
         {
             var response = logoutResponse.GetXml().OuterXml;
-            return BuildRequestUrl(providerName, relayState, response, logoutResponse.Destination);
+            //return BuildRequestUrl(providerName, relayState, response, logoutResponse.Destination);
+            return BuildResponseUrl(providerName, relayState, response, logoutResponse.Destination);
         }
 
+        private string BuildResponseUrl(string providerName, string relayState, string message, string destination)
+        {
+            var result = new StringBuilder();
+            result.AddMessageParameter(null, message);
+            result.AddRelayState(message, relayState);
+            AddSignature(providerName, result);
+            return $"{destination}?{result}";
+        }
+        
         public string GetLogoutResponseMessage(string providerName)
         {
             var signingCertificate = _configurationProvider.GetIdentityProviderSigningCertificate(providerName);

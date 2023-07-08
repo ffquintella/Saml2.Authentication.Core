@@ -2,7 +2,7 @@ using System;
 using dk.nita.saml20.Schema.Core;
 using dk.nita.saml20.Schema.Protocol;
 using dk.nita.saml20.Utils;
-using my = dk.nita.saml20.Schema.Core;
+using My = dk.nita.saml20.Schema.Core;
 
 namespace dk.nita.saml20.Validation
 {
@@ -160,7 +160,7 @@ namespace dk.nita.saml20.Validation
             if (statement.Action == null || statement.Action.Length == 0)
                 throw new Saml2FormatException("At least one Action subelement must be present for an AuthzDecisionStatement element");
 
-            foreach (my.Action action in statement.Action)
+            foreach (My.Action action in statement.Action)
             {
                 // NOTE: [SAML2.0std] claims that the Namespace is [Optional], but according to the schema definition (and Geneva)
                 // NOTE: it has use="required"

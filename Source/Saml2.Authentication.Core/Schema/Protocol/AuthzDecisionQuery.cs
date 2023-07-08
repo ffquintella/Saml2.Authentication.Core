@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 using dk.nita.saml20.Schema.Core;
 
-using my = dk.nita.saml20.Schema.Core;
+using My = dk.nita.saml20.Schema.Core;
 
 namespace dk.nita.saml20.Schema.Protocol
 {
@@ -26,7 +26,7 @@ namespace dk.nita.saml20.Schema.Protocol
         /// </summary>
         public new const string ELEMENT_NAME = "AuthzDecisionQuery";
 
-        private my.Action[] actionField;
+        private My.Action[] actionField;
 
         private Evidence evidenceField;
 
@@ -39,7 +39,7 @@ namespace dk.nita.saml20.Schema.Protocol
         /// </summary>
         /// <value>The action.</value>
         [XmlElement("Action", Namespace=Saml2Constants.ASSERTION)]
-        public my.Action[] Action
+        public My.Action[] Action
         {
             get { return actionField; }
             set { actionField = value; }

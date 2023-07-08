@@ -4,7 +4,7 @@
     <IsPackable>true</IsPackable>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PackageId>Saml2.Authentication.Core</PackageId>
+    <PackageId>fquintella-Saml2.Authentication.Core</PackageId>
     <Description>SAML 2.0 authentication middleware for ASP.NET Core</Description>
     <Authors>Felipe F. Quintella</Authors>
     <Company />
@@ -16,7 +16,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <LangVersion>11</LangVersion>
     <TargetFramework>net7.0</TargetFramework>
-    <Version>4.0.1</Version>
+    <Version>4.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>

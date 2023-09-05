@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Saml2.Authentication.Core\Saml2.Authentication.Core.csproj" />
+    <ProjectReference Include="..\Saml2.Authentication\Saml2.Authentication.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

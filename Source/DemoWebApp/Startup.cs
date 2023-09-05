@@ -37,7 +37,7 @@ namespace DemoWebApp
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IUserClaimsPrincipalFactory<ApplicationUser>, DemoWebAppClaimsPrincipalFactory>();
 
-            // Add Saml2.Authentication.Core
+            // Add Saml2.Authentication
             services.Configure<Saml2Configuration>(Configuration.GetSection("Saml2"));
 
             services.AddSaml();

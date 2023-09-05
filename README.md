@@ -1,9 +1,11 @@
-# Saml2.Authentication.Core
-A SAML 2.0 authentication middleware for ASP.NET Core
+# Saml2.Authentication
+A SAML 2.0 authentication middleware 
 
-This project is a fork of the [OIOSAML.Net](https://www.digitaliser.dk/resource/3849744) implementation of SAML 2.0 framework from [digitaliser.dk](https://www.digitaliser.dk/). It has been ported and modified to support ASP.NET Core with all dependencies to ASP.NET removed.
+This project is a fork of the [Saml2.Authentication.Core](https://github.com/jkmu/Saml2.Authentication.Core) implementation of SAML 2.0 framework witch has no updates for a long time. 
+The main goal of this fork is to provide a more up-to-date version of the framework with some bug fixes and new features.
 
 Available in [nuget.org](https://www.nuget.org/packages/Saml2.Authentication.Core/)
+
 ## Features
 Supports the following SAML 2.0 features for Web Browser SSO and Single Logout profiles
   - [x]  HTTP Redirect Binding <br/>

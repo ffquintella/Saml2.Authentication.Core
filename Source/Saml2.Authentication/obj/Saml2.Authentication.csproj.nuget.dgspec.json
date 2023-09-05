@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\felipe.quintella\\Dev\\Saml2.Authentication.Core\\Source\\Saml2.Authentication\\Saml2.Authentication.csproj": {}
+    "C:\\Users\\felipe.quintella\\Dev\\UOX.Saml2.Authentication\\Source\\Saml2.Authentication\\Saml2.Authentication.csproj": {}
   },
   "projects": {
-    "C:\\Users\\felipe.quintella\\Dev\\Saml2.Authentication.Core\\Source\\Saml2.Authentication\\Saml2.Authentication.csproj": {
+    "C:\\Users\\felipe.quintella\\Dev\\UOX.Saml2.Authentication\\Source\\Saml2.Authentication\\Saml2.Authentication.csproj": {
       "version": "4.0.4",
       "restore": {
-        "projectUniqueName": "C:\\Users\\felipe.quintella\\Dev\\Saml2.Authentication.Core\\Source\\Saml2.Authentication\\Saml2.Authentication.csproj",
+        "projectUniqueName": "C:\\Users\\felipe.quintella\\Dev\\UOX.Saml2.Authentication\\Source\\Saml2.Authentication\\Saml2.Authentication.csproj",
         "projectName": "Uox.Saml2.Authentication",
-        "projectPath": "C:\\Users\\felipe.quintella\\Dev\\Saml2.Authentication.Core\\Source\\Saml2.Authentication\\Saml2.Authentication.csproj",
+        "projectPath": "C:\\Users\\felipe.quintella\\Dev\\UOX.Saml2.Authentication\\Source\\Saml2.Authentication\\Saml2.Authentication.csproj",
         "packagesPath": "C:\\Users\\felipe.quintella\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\felipe.quintella\\Dev\\Saml2.Authentication.Core\\Source\\Saml2.Authentication\\obj\\",
+        "outputPath": "C:\\Users\\felipe.quintella\\Dev\\UOX.Saml2.Authentication\\Source\\Saml2.Authentication\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\felipe.quintella\\AppData\\Roaming\\NuGet\\NuGet.Config"

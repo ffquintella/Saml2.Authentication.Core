@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Saml2.Authentication.Core
-build_property.ProjectDir = C:\Users\felipe.quintella\Dev\Saml2.Authentication.Core\Source\Saml2.Authentication\
+build_property.ProjectDir = C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\

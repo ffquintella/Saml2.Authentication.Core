@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tNXJEXwSy5nX9cH2UwcceMrwIPY1L328QGcy9ls4tdxL5otv1v2HBj7u3K/Jfm2ibkcszDBvvNK2f6f2DWsK7Q==",
+  "dgSpecHash": "JWwAx0XWQVLMrpGmeg/ylE9GzI8YTqQC+CyIlFgiyOb2+iGuntKQsi1x9qF/hOYNrJj29ic6gNc5cy4BKpGtNQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\felipe.quintella\\Dev\\Saml2.Authentication.Core\\Source\\Saml2.Authentication\\Saml2.Authentication.csproj",
+  "projectFilePath": "C:\\Users\\felipe.quintella\\Dev\\UOX.Saml2.Authentication\\Source\\Saml2.Authentication\\Saml2.Authentication.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\felipe.quintella\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\felipe.quintella\\.nuget\\packages\\serilog\\3.0.1\\serilog.3.0.1.nupkg.sha512",

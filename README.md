@@ -4,7 +4,7 @@ A SAML 2.0 authentication middleware
 This project is a fork of the [Saml2.Authentication.Core](https://github.com/jkmu/Saml2.Authentication.Core) implementation of SAML 2.0 framework witch has no updates for a long time. 
 The main goal of this fork is to provide a more up-to-date version of the framework with some bug fixes and new features.
 
-Available in [nuget.org](https://www.nuget.org/packages/Saml2.Authentication.Core/)
+Available in [nuget.org](https://www.nuget.org/packages/UOX.Saml2.Authentication/)
 
 ## Features
 Supports the following SAML 2.0 features for Web Browser SSO and Single Logout profiles

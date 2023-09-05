@@ -1,0 +1,12 @@
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\bin\Release\net7.0\Saml2.Authentication.deps.json
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\bin\Release\net7.0\Saml2.Authentication.dll
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\bin\Release\net7.0\Saml2.Authentication.pdb
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\obj\Release\net7.0\Saml2.Authentication.csproj.AssemblyReference.cache
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\obj\Release\net7.0\Saml2.Authentication.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\obj\Release\net7.0\Saml2.Authentication.AssemblyInfoInputs.cache
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\obj\Release\net7.0\Saml2.Authentication.AssemblyInfo.cs
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\obj\Release\net7.0\Saml2.Authentication.csproj.CoreCompileInputs.cache
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\obj\Release\net7.0\Saml2.Authentication.dll
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\obj\Release\net7.0\refint\Saml2.Authentication.dll
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\obj\Release\net7.0\Saml2.Authentication.pdb
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\obj\Release\net7.0\ref\Saml2.Authentication.dll

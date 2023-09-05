@@ -8,7 +8,7 @@
       "version": "4.0.4",
       "restore": {
         "projectUniqueName": "C:\\Users\\felipe.quintella\\Dev\\UOX.Saml2.Authentication\\Source\\Saml2.Authentication\\Saml2.Authentication.csproj",
-        "projectName": "Uox.Saml2.Authentication",
+        "projectName": "UOX.Saml2.Authentication",
         "projectPath": "C:\\Users\\felipe.quintella\\Dev\\UOX.Saml2.Authentication\\Source\\Saml2.Authentication\\Saml2.Authentication.csproj",
         "packagesPath": "C:\\Users\\felipe.quintella\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\felipe.quintella\\Dev\\UOX.Saml2.Authentication\\Source\\Saml2.Authentication\\obj\\",

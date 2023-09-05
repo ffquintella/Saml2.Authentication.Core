@@ -1,0 +1,6 @@
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\bin\Release\net7.0\publish\Saml2.Authentication.dll
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\bin\Release\net7.0\publish\Saml2.Authentication.deps.json
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\bin\Release\net7.0\publish\Saml2.Authentication.pdb
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\bin\Release\net7.0\publish\Newtonsoft.Json.dll
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\bin\Release\net7.0\publish\Serilog.dll
+C:\Users\felipe.quintella\Dev\UOX.Saml2.Authentication\Source\Saml2.Authentication\bin\Release\net7.0\publish\System.Security.Cryptography.Xml.dll

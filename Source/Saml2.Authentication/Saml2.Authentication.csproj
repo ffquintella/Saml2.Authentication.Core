@@ -14,7 +14,7 @@
     <PackageTags>SAML 2.0, SAML2, ASP.NET Core, Authentication, Security</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <LangVersion>12</LangVersion>
-    <Version>4.1.1</Version>
+    <Version>4.1.2</Version>
     <RootNamespace>Saml2.Authentication.Core</RootNamespace>
     <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>

@@ -16,7 +16,6 @@
     <LangVersion>12</LangVersion>
     <Version>4.1.0</Version>
     <RootNamespace>Saml2.Authentication.Core</RootNamespace>
-    <PackageIcon>logo.jpeg</PackageIcon>
     <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 

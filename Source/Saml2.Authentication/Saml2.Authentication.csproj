@@ -31,10 +31,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="logo.jpeg">
+    <None Remove="docs\README.md" />
+    <Content Include="docs\README.md" PackagePath="\">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="logo.jpeg" />
+    <Content Include="logo.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+    </Content>
   </ItemGroup>
 
 </Project>

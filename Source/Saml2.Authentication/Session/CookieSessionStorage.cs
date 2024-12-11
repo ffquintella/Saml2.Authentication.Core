@@ -1,4 +1,6 @@
-﻿namespace Saml2.Authentication.Core.Session
+﻿using System;
+
+namespace Saml2.Authentication.Core.Session
 {
     using System.Threading.Tasks;
     using Extensions;
@@ -12,12 +14,12 @@
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IOptionsMonitor<Saml2Options> _options;
-        private readonly ISystemClock _clock;
+        private readonly TimeProvider _clock;
 
         public CookieSessionStorage(
             IHttpContextAccessor httpContextAccessor,
             IOptionsMonitor<Saml2Options> options,
-            ISystemClock clock)
+            TimeProvider clock)
         {
             _httpContextAccessor = httpContextAccessor;
             _options = options;
@@ -55,14 +57,14 @@
             Response.Cookies.Append(
                 SessionCookieName,
                 Options.ObjectDataFormat.Protect(session),
-                Options.SessionCookie.Build(Context, _clock.UtcNow));
+                Options.SessionCookie.Build(Context, _clock.GetUtcNow()));
         }
 
         public Task RemoveAsync<T>()
         {
             Response.DeleteAllSessionCookies(
                 Context.Request,
-                 Options.SessionCookie.Build(Context, _clock.UtcNow.AddDays(-1)));
+                 Options.SessionCookie.Build(Context, _clock.GetUtcNow().AddDays(-1)));
             return Task.CompletedTask;
         }
 

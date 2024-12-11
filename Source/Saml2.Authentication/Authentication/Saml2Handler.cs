@@ -32,13 +32,13 @@
             IOptionsMonitor<Saml2Options> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
-            ISystemClock clock,
+            //ISystemClock clock,
             IHttpRedirectBinding httpRedirectBinding,
             IHttpArtifactBinding httpArtifactBinding,
             ISessionStore sessionStore,
             ISamlService samlService,
             IConfigurationProvider configurationProvider)
-            : base(options, logger, encoder, clock)
+            : base(options, logger, encoder)
         {
             _logger = logger.CreateLogger(typeof(Saml2Handler));
             _httpRedirectBinding = httpRedirectBinding;
@@ -67,7 +67,7 @@
 
         public async Task SignOutAsync(AuthenticationProperties properties)
         {
-            _logger.LogDebug($"Entering {nameof(SignOutAsync)}", properties);
+            _logger.LogDebug($"Entering {nameof(SignOutAsync)}");
 
             var logoutRequestId = CreateUniqueId();
             properties ??= new AuthenticationProperties();
@@ -86,7 +86,7 @@
 
         protected override async Task HandleChallengeAsync(AuthenticationProperties properties)
         {
-            _logger.LogDebug($"Entering {nameof(HandleChallengeAsync)}", properties);
+            _logger.LogDebug($"Entering {nameof(HandleChallengeAsync)}");
 
             properties ??= new AuthenticationProperties();
 

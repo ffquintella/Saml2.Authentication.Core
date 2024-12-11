@@ -632,7 +632,9 @@ namespace dk.nita.saml20.Utils
             {
                 try
                 {
-                    var xc = new X509Certificate2(Convert.FromBase64String(xn.InnerText));
+                    //var xc = new X509Certificate2(Convert.FromBase64String(xn.InnerText));
+                    var xc = X509CertificateLoader.LoadCertificate(Convert.FromBase64String(xn.InnerText));
+                    
                     lCert.Add(xc);
                 }
                 catch

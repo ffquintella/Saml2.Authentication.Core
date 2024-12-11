@@ -13,17 +13,17 @@
     <RepositoryUrl>https://github.com/ffquintella/UOX.Saml2.Authentication</RepositoryUrl>
     <PackageTags>SAML 2.0, SAML2, ASP.NET Core, Authentication, Security</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <LangVersion>11</LangVersion>
-    <TargetFramework>net7.0</TargetFramework>
-    <Version>4.0.5</Version>
+    <LangVersion>12</LangVersion>
+    <Version>4.1.0</Version>
     <RootNamespace>Saml2.Authentication.Core</RootNamespace>
     <PackageIcon>logo.jpeg</PackageIcon>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Serilog" Version="3.0.1" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="7.0.1" />
+    <PackageReference Include="Serilog" Version="4.2.0" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>

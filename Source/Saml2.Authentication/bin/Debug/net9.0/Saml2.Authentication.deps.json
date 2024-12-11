@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v9.0": {
-      "Saml2.Authentication/4.0.5": {
+      "Saml2.Authentication/4.1.0": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.3",
           "Serilog": "4.2.0",
@@ -41,7 +41,7 @@
     }
   },
   "libraries": {
-    "Saml2.Authentication/4.0.5": {
+    "Saml2.Authentication/4.1.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

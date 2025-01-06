@@ -94,8 +94,15 @@ namespace Saml2.Authentication.Core.Providers
                     password,
                     flags);*/
 
-                return X509CertificateLoader.LoadPkcs12FromFile(fullFileName, password, flags);
-
+                try
+                {
+                    return X509CertificateLoader.LoadCertificateFromFile(fullFileName);
+                }
+                catch
+                {
+                    return X509CertificateLoader.LoadPkcs12FromFile(fullFileName, password, flags);
+                }
+                
             }
             catch (Exception ex)
             {
